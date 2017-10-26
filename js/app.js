@@ -1,6 +1,17 @@
 (function (window) {
   'use strict';
 
-  window.updateView();
+  var store = window.configureStore();
+  store.subscribe(handleStoreUpdate);
+  handleStoreUpdate();
+
+  var currentState;
+  function handleStoreUpdate() {
+    var nextState = store.getState();
+    if (nextState !== currentState) {
+      currentState = nextState;
+      window.updateView(currentState, store.dispatch);
+    }
+  }
 
 })(window);

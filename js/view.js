@@ -1,24 +1,52 @@
 (function (window) {
   'use strict';
 
-  window.updateView = function updateView() {
+  var ENTER_KEY = 13;
+  var ESCAPE_KEY = 27;
+
+  var addTodo = window.actions.addTodo;
+  var editBeginTodo = window.actions.editBeginTodo;
+  var editCancelTodo = window.actions.editCancelTodo;
+  var editSaveTodo = window.actions.editSaveTodo;
+  var toggleTodo = window.actions.toggleTodo;
+  var destroyTodo = window.actions.destroyTodo;
+
+  var toggleAll = window.actions.toggleAll;
+  var clearCompleted = window.actions.clearCompleted;
+
+  window.updateView = function updateView(state, dispatch) {
+
     var app = d3.select(".todoapp")
-      .datum({
-        nextId: 3,
-        todos: [
-          {
-            id: 1,
-            title: "Taste JavaScript",
-            completed: true,
-            editing: false
-          },
-          {
-            id: 2,
-            title: "Buy a unicorn",
-            completed: false,
-            editing: false
-          }
-        ]
+      .datum(state);
+
+    app.select(".new-todo")
+      .on("keyup", function () {
+        if (d3.event.which === ENTER_KEY) {
+          var title = this.value.trim();
+          this.value = "";
+          if (!title) return;
+
+          dispatch(addTodo(title));
+        }
+      });
+
+    app.select(".toggle-all")
+      .property("checked", function (d) {
+        var any = d.todos.length;
+        var anyLeft = d.todos.filter(function (t) { return !t.completed; }).length;
+        return any && !anyLeft;
+      })
+      .on("click", function () {
+        dispatch(toggleAll());
+      });
+
+    app.select(".clear-completed")
+      .style("display", function (d) {
+        var anyDone = d.todos.filter(function (t) { return t.completed; }).length;
+        if (!anyDone) return "none";
+      })
+      .on("click", function () {
+        dispatch(clearCompleted());
       });
 
     var main = app.select(".main")
@@ -41,27 +69,62 @@
     todosView.append("input")
       .attr("class", "toggle")
       .attr("type", "checkbox")
+      .on("click", function (d) {
+        dispatch(toggleTodo(d.id));
+      });
 
-    todosView.append("label");
+    todosView.append("label")
+      .on("dblclick", function (d) {
+        dispatch(editBeginTodo(d.id));
+      });
 
     todosView.append("button")
-      .attr("class", "destroy");
+      .attr("class", "destroy")
+      .on("click", function (d) {
+        dispatch(destroyTodo(d.id));
+      });
+
+    function updateTodo(d) {
+      var title = this.value.trim();
+      if (!title) {
+        dispatch(destroyTodo(d.id, title));
+      }
+      else {
+        dispatch(editSaveTodo(d.id, title));
+      }
+    }
 
     todosEnter.append("input")
       .attr("class", "edit")
+      .on("blur", updateTodo)
+      .on("keyup", function (d) {
+        if (d3.event.which === ENTER_KEY) {
+          updateTodo.call(this, d);
+        }
+        if (d3.event.which === ESCAPE_KEY) {
+          dispatch(editCancelTodo(d.id));
+        }
+      });
 
     var todos = todosEnter.merge(todosJoin);
 
-    todos.classed("completed", function (d) { return d.completed; })
+    todos
+      .classed("completed", function (d) { return d.completed; })
+      .classed("editing", function (d) { return d.editing; });
 
-    todos.selectAll("input.toggle")
-      .attr("checked", function (d) { if (d.completed) return "checked"; });
+    todos.select("input.toggle")
+      .property("checked", function (d) { return d.completed; });
 
-    todos.selectAll("label")
+    todos.select("label")
       .text(function (d) { return d.title; });
 
-    todos.selectAll("input.edit")
-      .attr("value", function (d) { return d.title; });
+    todos.select("input.edit")
+      .property("value", function (d) { return d.title; });
+
+    todos.filter(function (d) { return d.editing; })
+      .select("input.edit")
+      .nodes()
+      .forEach(function (node) { return node.focus(); });
 
     var footer = app.select(".footer")
       .style("display", function (d) { if (!d.todos.length) return "none"; });
@@ -109,7 +172,7 @@
 
     var filters = filtersEnter.merge(filtersJoin);
 
-    filters.selectAll("a")
+    filters.select("a")
       .classed("selected", function (d) { return d.selected; });
   };
 
