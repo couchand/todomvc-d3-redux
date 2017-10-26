@@ -1,0 +1,13 @@
+{
+  "name": "todomvc-d3-redux",
+  "version": "1.0.0",
+  "description": "The standard TodoMVC app built with D3 and Redux.",
+  "main": "index.js",
+  "repository": "github.com/couchand/todomvc-d3-redux",
+  "author": "Andrew Couch <hi@andrewcou.ch>",
+  "license": "MIT",
+  "dependencies": {
+    "todomvc-app-css": "^2.0.0",
+    "todomvc-common": "^1.0.0"
+  }
+}
