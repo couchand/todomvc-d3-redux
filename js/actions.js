@@ -67,6 +67,13 @@
     }
   }
 
+  function setFilter(filter) {
+    return {
+      type: SET_FILTER,
+      payload: { filter }
+    }
+  }
+
   window.actions = {
     ADD_TODO,
     EDIT_BEGIN_TODO,
@@ -89,6 +96,8 @@
 
     toggleAll,
     clearCompleted,
+
+    setFilter
   };
 
 })(window);

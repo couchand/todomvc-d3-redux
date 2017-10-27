@@ -2,6 +2,7 @@
   'use strict';
 
   var store = window.configureStore(window.retrieveTodos());
+  window.startRouting(store.dispatch);
   store.subscribe(handleStoreUpdate);
   handleStoreUpdate();
 

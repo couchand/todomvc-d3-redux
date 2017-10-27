@@ -14,6 +14,10 @@
   var toggleAll = window.actions.toggleAll;
   var clearCompleted = window.actions.clearCompleted;
 
+  var SHOW_ALL = window.filters.SHOW_ALL;
+  var SHOW_ACTIVE = window.filters.SHOW_ACTIVE;
+  var SHOW_COMPLETED = window.filters.SHOW_COMPLETED;
+
   window.updateView = function updateView(state, dispatch) {
 
     var app = d3.select(".todoapp")
@@ -50,11 +54,26 @@
       });
 
     var main = app.select(".main")
-      .style("display", function (d) { if (!d.todos.length) return "none"; });
+      .datum(function (d) {
+        return d.todos.filter(function (todo) {
+          switch (state.filter) {
+            case SHOW_ACTIVE:
+              return !todo.completed;
+
+            case SHOW_COMPLETED:
+              return todo.completed;
+
+            case SHOW_ALL:
+            default:
+              return true
+          }
+        });
+      })
+      .style("display", function (d) { if (!d.length) return "none"; });
 
     var todosJoin = main.select(".todo-list")
       .selectAll("li")
-      .data(function (d) { return d.todos; }, function (d) { return d.id; });
+      .data(function (d) { return d; }, function (d) { return d.id; });
 
     todosJoin.exit()
       .remove();
@@ -142,23 +161,25 @@
 
     var filtersJoin = footer.select(".filters")
       .selectAll("li")
-      .data([
-        {
-          title: "All",
-          route: "#/",
-          selected: true
-        },
-        {
-          title: "Active",
-          route: "#/active",
-          selected: false
-        },
-        {
-          title: "Completed",
-          route: "#/completed",
-          selected: false
-        }
-      ]);
+      .data(function (d) {
+        return [
+          {
+            title: "All",
+            route: "#/",
+            selected: d.filter === SHOW_ALL
+          },
+          {
+            title: "Active",
+            route: "#/active",
+            selected: d.filter === SHOW_ACTIVE
+          },
+          {
+            title: "Completed",
+            route: "#/completed",
+            selected: d.filter === SHOW_COMPLETED
+          }
+        ];
+      });
 
     filtersJoin.exit()
       .remove();

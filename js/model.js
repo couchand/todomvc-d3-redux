@@ -106,8 +106,25 @@
     }
   }
 
+  var SET_FILTER = window.actions.SET_FILTER;
+
+  var SHOW_ALL = window.filters.SHOW_ALL;
+  var SHOW_ACTIVE = window.filters.SHOW_ACTIVE;
+  var SHOW_COMPLETED = window.filters.SHOW_COMPLETED;
+
+  function filterReducer(state = SHOW_ALL, action) {
+    switch (action.type) {
+      case SET_FILTER:
+        return action.payload.filter;
+
+      default:
+        return state;
+    }
+  }
+
   var rootReducer = Redux.combineReducers({
-    todos: todoReducer
+    todos: todoReducer,
+    filter: filterReducer
   });
 
   window.configureStore = function configureStore(initialState) {
