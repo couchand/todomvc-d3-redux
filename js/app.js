@@ -1,7 +1,7 @@
 (function (window) {
   'use strict';
 
-  var store = window.configureStore();
+  var store = window.configureStore(window.retrieveTodos());
   store.subscribe(handleStoreUpdate);
   handleStoreUpdate();
 
@@ -11,6 +11,7 @@
     if (nextState !== currentState) {
       currentState = nextState;
       window.updateView(currentState, store.dispatch);
+      window.persistTodos(currentState);
     }
   }
 
