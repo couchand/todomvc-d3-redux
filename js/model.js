@@ -11,21 +11,6 @@
   var TOGGLE_ALL = window.actions.TOGGLE_ALL;
   var CLEAR_COMPLETED = window.actions.CLEAR_COMPLETED;
 
-  var initialTodos = [
-    {
-      id: 1,
-      title: "Taste JavaScript",
-      completed: true,
-      editing: false
-    },
-    {
-      id: 2,
-      title: "Buy a unicorn",
-      completed: false,
-      editing: false
-    }
-  ];
-
   function getNextId(todos) {
     var lastId = todos
       .map(function (todo) { return todo.id; })
@@ -34,7 +19,7 @@
     return lastId + 1;
   }
 
-  function todoReducer(state = initialTodos, action) {
+  function todoReducer(state = [], action) {
     switch (action.type) {
       case ADD_TODO:
         var newTodo = {
