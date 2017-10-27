@@ -14,10 +14,6 @@
   var toggleAll = window.actions.toggleAll;
   var clearCompleted = window.actions.clearCompleted;
 
-  var SHOW_ALL = window.filters.SHOW_ALL;
-  var SHOW_ACTIVE = window.filters.SHOW_ACTIVE;
-  var SHOW_COMPLETED = window.filters.SHOW_COMPLETED;
-
   window.updateView = function updateView(state, dispatch) {
 
     var app = d3.select(".todoapp")
@@ -55,19 +51,8 @@
 
     var main = app.select(".main")
       .datum(function (d) {
-        return d.todos.filter(function (todo) {
-          switch (state.filter) {
-            case SHOW_ACTIVE:
-              return !todo.completed;
-
-            case SHOW_COMPLETED:
-              return todo.completed;
-
-            case SHOW_ALL:
-            default:
-              return true
-          }
-        });
+        var filter = window.filters.get(d.filter);
+        return d.todos.filter(filter.predicate);
       })
       .style("display", function (d) { if (!d.length) return "none"; });
 
@@ -162,23 +147,7 @@
     var filtersJoin = footer.select(".filters")
       .selectAll("li")
       .data(function (d) {
-        return [
-          {
-            title: "All",
-            route: "#/",
-            selected: d.filter === SHOW_ALL
-          },
-          {
-            title: "Active",
-            route: "#/active",
-            selected: d.filter === SHOW_ACTIVE
-          },
-          {
-            title: "Completed",
-            route: "#/completed",
-            selected: d.filter === SHOW_COMPLETED
-          }
-        ];
+        return window.filters.getAll(d.filter);
       });
 
     filtersJoin.exit()
@@ -188,7 +157,7 @@
       .append("li");
 
     filtersEnter.append("a")
-      .attr("href", function (d) { return d.route; })
+      .attr("href", function (d) { return '#' + d.route; })
       .text(function (d) { return d.title; });
 
     var filters = filtersEnter.merge(filtersJoin);

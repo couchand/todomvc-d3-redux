@@ -107,12 +107,9 @@
   }
 
   var SET_FILTER = window.actions.SET_FILTER;
+  var defaultFilter = window.filters.defaultFilter;
 
-  var SHOW_ALL = window.filters.SHOW_ALL;
-  var SHOW_ACTIVE = window.filters.SHOW_ACTIVE;
-  var SHOW_COMPLETED = window.filters.SHOW_COMPLETED;
-
-  function filterReducer(state = SHOW_ALL, action) {
+  function filterReducer(state = defaultFilter, action) {
     switch (action.type) {
       case SET_FILTER:
         return action.payload.filter;
