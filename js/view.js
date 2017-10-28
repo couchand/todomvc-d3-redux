@@ -14,6 +14,9 @@
   var toggleAll = window.actions.toggleAll;
   var clearCompleted = window.actions.clearCompleted;
 
+  var filterActive = window.filters.activeTodos;
+  var filterCompleted = window.filters.completedTodos;
+
   window.createView = function createView(dispatch) {
     var app = d3.select(".todoapp");
 
@@ -46,14 +49,14 @@
     app.select(".toggle-all")
       .property("checked", function (d) {
         var any = d.todos.length;
-        var anyLeft = d.todos.filter(function (t) { return !t.completed; }).length;
-        return any && !anyLeft;
+        var anyActive = filterActive(d.todos).length;
+        return any && !anyActive;
       });
 
     app.select(".clear-completed")
       .style("display", function (d) {
-        var anyDone = d.todos.filter(function (t) { return t.completed; }).length;
-        if (!anyDone) return "none";
+        var anyCompleted = filterCompleted(d.todos).length;
+        if (!anyCompleted) return "none";
       });
 
     var main = app.select(".main")
@@ -142,7 +145,7 @@
 
     var todoCount = footer.select(".todo-count")
       .datum(function (d) {
-        return d.todos.filter(function (t) { return !t.completed; }).length;
+        return filterActive(d.todos).length;
       });
 
     todoCount.select("strong")

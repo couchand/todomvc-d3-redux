@@ -16,15 +16,31 @@
       type: SHOW_ACTIVE,
       title: "Active",
       route: "/active",
-      predicate: function (todo) { return !todo.completed; }
+      predicate: activePredicate
     },
     {
       type: SHOW_COMPLETED,
       title: "Completed",
       route: "/completed",
-      predicate: function (todo) { return todo.completed; }
+      predicate: completedPredicate
     }
   ];
+
+  function activePredicate(todo) {
+    return !todo.completed;
+  }
+
+  function completedPredicate(todo) {
+    return todo.completed;
+  }
+
+  function filterActive(todos) {
+    return todos.filter(activePredicate);
+  }
+
+  function filterCompleted(todos) {
+    return todos.filter(completedPredicate);
+  }
 
   function getFilter(current) {
     var selected = filterConfig.filter(function (filter) {
@@ -51,6 +67,9 @@
     SHOW_ALL: SHOW_ALL,
     SHOW_ACTIVE: SHOW_ACTIVE,
     SHOW_COMPLETED: SHOW_COMPLETED,
+
+    activeTodos: filterActive,
+    completedTodos: filterCompleted,
 
     defaultFilter: SHOW_ALL,
 
