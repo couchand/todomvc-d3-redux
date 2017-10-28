@@ -14,10 +14,8 @@
   var toggleAll = window.actions.toggleAll;
   var clearCompleted = window.actions.clearCompleted;
 
-  window.updateView = function updateView(state, dispatch) {
-
-    var app = d3.select(".todoapp")
-      .datum(state);
+  window.createView = function createView(dispatch) {
+    var app = d3.select(".todoapp");
 
     app.select(".new-todo")
       .on("keyup", function () {
@@ -31,22 +29,31 @@
       });
 
     app.select(".toggle-all")
+      .on("click", function () {
+        dispatch(toggleAll());
+      });
+
+    app.select(".clear-completed")
+      .on("click", function () {
+        dispatch(clearCompleted());
+      });
+  };
+
+  window.updateView = function updateView(state, dispatch) {
+    var app = d3.select(".todoapp")
+      .datum(state);
+
+    app.select(".toggle-all")
       .property("checked", function (d) {
         var any = d.todos.length;
         var anyLeft = d.todos.filter(function (t) { return !t.completed; }).length;
         return any && !anyLeft;
-      })
-      .on("click", function () {
-        dispatch(toggleAll());
       });
 
     app.select(".clear-completed")
       .style("display", function (d) {
         var anyDone = d.todos.filter(function (t) { return t.completed; }).length;
         if (!anyDone) return "none";
-      })
-      .on("click", function () {
-        dispatch(clearCompleted());
       });
 
     var main = app.select(".main")
