@@ -4,7 +4,6 @@
   var ENTER_KEY = 13;
   var ESCAPE_KEY = 27;
 
-  var addTodo = window.actions.addTodo;
   var editBeginTodo = window.actions.editBeginTodo;
   var editCancelTodo = window.actions.editCancelTodo;
   var editSaveTodo = window.actions.editSaveTodo;
@@ -18,16 +17,10 @@
   window.createView = function createView(dispatch) {
     var app = d3.select(".todoapp");
 
-    app.select(".new-todo")
-      .on("keyup", function () {
-        if (d3.event.which === ENTER_KEY) {
-          var title = this.value.trim();
-          this.value = "";
-          if (!title) return;
+    var newTodo = window.components.newTodo(dispatch);
 
-          dispatch(addTodo(title));
-        }
-      });
+    app.select(".new-todo")
+      .call(newTodo);
 
     app.select(".toggle-all")
       .on("click", function () {
