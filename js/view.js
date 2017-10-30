@@ -154,26 +154,10 @@
     todoCount.select("span")
       .text(function (d) { return d === 1 ? " item left" : " items left"; });
 
-    var filtersJoin = footer.select(".filters")
-      .selectAll("li")
-      .data(function (d) {
-        return window.filters.getAll(d.filter);
-      });
+    var filterList = window.components.filterList();
 
-    filtersJoin.exit()
-      .remove();
-
-    var filtersEnter = filtersJoin.enter()
-      .append("li");
-
-    filtersEnter.append("a")
-      .attr("href", function (d) { return '#' + d.route; })
-      .text(function (d) { return d.title; });
-
-    var filters = filtersEnter.merge(filtersJoin);
-
-    filters.select("a")
-      .classed("selected", function (d) { return d.selected; });
+    footer.select(".filters")
+      .call(filterList);
   };
 
 })(window);
