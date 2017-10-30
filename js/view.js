@@ -19,17 +19,10 @@
     app.select(".toggle-all")
       .call(toggleAll);
 
-    var main = app.select(".main")
-      .datum(function (d) {
-        var filter = window.filters.get(d.filter);
-        return d.todos.filter(filter.predicate);
-      })
-      .style("display", function (d) { if (!d.length) return "none"; });
+    var main = window.components.main(dispatch);
 
-    var todoList = window.components.todoList(dispatch);
-
-    main.select(".todo-list")
-      .call(todoList);
+    app.select(".main")
+      .call(main);
 
     var footer = window.components.footer(dispatch);
 
