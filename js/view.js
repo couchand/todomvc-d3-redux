@@ -39,11 +39,6 @@
     var app = d3.select(".todoapp")
       .datum(state);
 
-    var clearCompleted = window.components.clearCompleted(dispatch);
-
-    app.select(".clear-completed")
-      .call(clearCompleted);
-
     app.select(".toggle-all")
       .property("checked", function (d) {
         var any = d.todos.length;
@@ -132,18 +127,10 @@
       .nodes()
       .forEach(function (node) { return node.focus(); });
 
-    var footer = app.select(".footer")
-      .style("display", function (d) { if (!d.todos.length) return "none"; });
+    var footer = window.components.footer(dispatch);
 
-    var todoCount = window.components.todoCount();
-
-    footer.select(".todo-count")
-      .call(todoCount);
-
-    var filterList = window.components.filterList();
-
-    footer.select(".filters")
-      .call(filterList);
+    app.select(".footer")
+      .call(footer);
   };
 
 })(window);
