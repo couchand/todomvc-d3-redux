@@ -34,48 +34,31 @@
         return state.map(function (todo) {
           if (todo.id !== action.payload.id) return todo;
 
-          return {
-            id: todo.id,
-            title: todo.title,
-            completed: todo.completed,
-            editing: true
-          };
+          return Object.assign({}, todo, { editing: true });
         });
 
       case EDIT_CANCEL_TODO:
         return state.map(function (todo) {
           if (todo.id !== action.payload.id) return todo;
 
-          return {
-            id: todo.id,
-            title: todo.title,
-            completed: todo.completed,
-            editing: false
-          };
+          return Object.assign({}, todo, { editing: false });
         });
 
       case EDIT_SAVE_TODO:
         return state.map(function (todo) {
           if (todo.id !== action.payload.id) return todo;
 
-          return {
-            id: todo.id,
+          return Object.assign({}, todo, {
             title: action.payload.title,
-            completed: todo.completed,
             editing: false
-          };
+          });
         });
 
       case TOGGLE_TODO:
         return state.map(function (todo) {
           if (todo.id !== action.payload.id) return todo;
 
-          return {
-            id: todo.id,
-            title: todo.title,
-            completed: !todo.completed,
-            editing: todo.editing
-          };
+          return Object.assign({}, todo, { completed: !todo.completed });
         });
 
       case DESTROY_TODO:
@@ -88,12 +71,7 @@
           return !todo.completed;
         }).length;
         return state.map(function (todo) {
-          return {
-            id: todo.id,
-            title: todo.title,
-            completed: anyLeft,
-            editing: todo.editing
-          };
+          return Object.assign({}, todo, { completed: anyLeft });
         });
 
       case CLEAR_COMPLETED:
