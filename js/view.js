@@ -10,10 +10,6 @@
   var toggleTodo = window.actions.toggleTodo;
   var destroyTodo = window.actions.destroyTodo;
 
-  var toggleAll = window.actions.toggleAll;
-
-  var filterActive = window.filters.activeTodos;
-
   window.createView = function createView(dispatch) {
     var app = d3.select(".todoapp");
 
@@ -21,23 +17,16 @@
 
     app.select(".new-todo")
       .call(newTodo);
-
-    app.select(".toggle-all")
-      .on("click", function () {
-        dispatch(toggleAll());
-      });
   };
 
   window.updateView = function updateView(state, dispatch) {
     var app = d3.select(".todoapp")
       .datum(state);
 
+    var toggleAll = window.components.toggleAll(dispatch);
+
     app.select(".toggle-all")
-      .property("checked", function (d) {
-        var any = d.todos.length;
-        var anyActive = filterActive(d.todos).length;
-        return any && !anyActive;
-      });
+      .call(toggleAll);
 
     var main = app.select(".main")
       .datum(function (d) {
