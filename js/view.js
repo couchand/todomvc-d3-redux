@@ -143,16 +143,10 @@
     var footer = app.select(".footer")
       .style("display", function (d) { if (!d.todos.length) return "none"; });
 
-    var todoCount = footer.select(".todo-count")
-      .datum(function (d) {
-        return filterActive(d.todos).length;
-      });
+    var todoCount = window.components.todoCount();
 
-    todoCount.select("strong")
-      .text(function (d) { return d; });
-
-    todoCount.select("span")
-      .text(function (d) { return d === 1 ? " item left" : " items left"; });
+    footer.select(".todo-count")
+      .call(todoCount);
 
     var filterList = window.components.filterList();
 
