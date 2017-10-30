@@ -12,10 +12,8 @@
   var destroyTodo = window.actions.destroyTodo;
 
   var toggleAll = window.actions.toggleAll;
-  var clearCompleted = window.actions.clearCompleted;
 
   var filterActive = window.filters.activeTodos;
-  var filterCompleted = window.filters.completedTodos;
 
   window.createView = function createView(dispatch) {
     var app = d3.select(".todoapp");
@@ -35,28 +33,22 @@
       .on("click", function () {
         dispatch(toggleAll());
       });
-
-    app.select(".clear-completed")
-      .on("click", function () {
-        dispatch(clearCompleted());
-      });
   };
 
   window.updateView = function updateView(state, dispatch) {
     var app = d3.select(".todoapp")
       .datum(state);
 
+    var clearCompleted = window.components.clearCompleted(dispatch);
+
+    app.select(".clear-completed")
+      .call(clearCompleted);
+
     app.select(".toggle-all")
       .property("checked", function (d) {
         var any = d.todos.length;
         var anyActive = filterActive(d.todos).length;
         return any && !anyActive;
-      });
-
-    app.select(".clear-completed")
-      .style("display", function (d) {
-        var anyCompleted = filterCompleted(d.todos).length;
-        if (!anyCompleted) return "none";
       });
 
     var main = app.select(".main")
