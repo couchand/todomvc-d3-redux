@@ -10,17 +10,10 @@
     var footer = window.components.footer(dispatch);
 
     return function (app) {
-      app.select(".new-todo")
-        .call(newTodo);
-
-      app.select(".toggle-all")
-        .call(toggleAll);
-
-      app.select(".main")
-        .call(main);
-
-      app.select(".footer")
-        .call(footer);
+      app.select('.new-todo').call(newTodo);
+      app.select('.toggle-all').call(toggleAll);
+      app.select('.main').call(main);
+      app.select('.footer').call(footer);
     };
   };
 

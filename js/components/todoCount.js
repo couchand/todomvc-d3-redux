@@ -11,11 +11,13 @@
         return filterActive(d.todos).length;
       });
 
-      todoCount.select("strong")
+      todoCount.select('strong')
         .text(function (d) { return d; });
 
-      todoCount.select("span")
-        .text(function (d) { return d === 1 ? " item left" : " items left"; });
+      todoCount.select('span')
+        .text(function (d) {
+          return d === 1 ? ' item left' : ' items left';
+        });
     };
   };
 

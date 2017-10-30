@@ -8,20 +8,20 @@
   var filterConfig = [
     {
       type: SHOW_ALL,
-      title: "All",
-      route: "/",
+      title: 'All',
+      route: '/',
       predicate: function (todo) { return true; }
     },
     {
       type: SHOW_ACTIVE,
-      title: "Active",
-      route: "/active",
+      title: 'Active',
+      route: '/active',
       predicate: activePredicate
     },
     {
       type: SHOW_COMPLETED,
-      title: "Completed",
-      route: "/completed",
+      title: 'Completed',
+      route: '/completed',
       predicate: completedPredicate
     }
   ];

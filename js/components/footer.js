@@ -9,18 +9,13 @@
     var filterList = window.components.filterList();
 
     return function (footer) {
-      footer.style("display", function (d) {
-        if (!d.todos.length) return "none";
+      footer.style('display', function (d) {
+        if (!d.todos.length) return 'none';
       });
 
-      footer.select(".clear-completed")
-        .call(clearCompleted);
-
-      footer.select(".todo-count")
-        .call(todoCount);
-
-      footer.select(".filters")
-        .call(filterList);
+      footer.select('.clear-completed').call(clearCompleted);
+      footer.select('.todo-count').call(todoCount);
+      footer.select('.filters').call(filterList);
     };
   };
 

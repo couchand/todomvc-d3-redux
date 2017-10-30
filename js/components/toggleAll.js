@@ -9,10 +9,10 @@
 
     return function (toggleAll) {
       toggleAll
-        .on("click", function () {
+        .on('click', function () {
           dispatch(toggleAllAction());
         })
-        .property("checked", function (d) {
+        .property('checked', function (d) {
           var any = d.todos.length;
           var anyActive = filterActive(d.todos).length;
           return any && !anyActive;

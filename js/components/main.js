@@ -12,10 +12,11 @@
           var filter = window.filters.get(d.filter);
           return d.todos.filter(filter.predicate);
         })
-        .style("display", function (d) { if (!d.length) return "none"; });
+        .style('display', function (d) {
+          if (!d.length) return 'none';
+        });
 
-      main.select(".todo-list")
-        .call(todoList);
+      main.select('.todo-list').call(todoList);
     };
   };
 

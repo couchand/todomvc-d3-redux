@@ -9,12 +9,12 @@
 
     return function (clearCompleted) {
       clearCompleted
-        .on("click", function () {
+        .on('click', function () {
           dispatch(clearCompletedAction());
         })
-        .style("display", function (d) {
+        .style('display', function (d) {
           var anyCompleted = filterCompleted(d.todos).length;
-          if (!anyCompleted) return "none";
+          if (!anyCompleted) return 'none';
         });
     };
   };

@@ -8,7 +8,7 @@
   };
 
   window.updateView = function updateView(state, dispatch) {
-    d3.select(".todoapp")
+    d3.select('.todoapp')
       .datum(state)
       .call(app);
   };
