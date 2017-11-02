@@ -3,15 +3,19 @@
 
   window.components = window.components || {};
 
-  window.components.footer = function (dispatch) {
-    var clearCompleted = window.components.clearCompleted(dispatch);
+  window.components.footer = function () {
+    var clearCompleted = window.components.clearCompleted();
     var todoCount = window.components.todoCount();
     var filterList = window.components.filterList();
 
     return function (footer) {
-      footer.style('display', function (d) {
-        if (!d.todos.length) return 'none';
-      });
+      footer
+        .datumFromState(function (state) {
+          return state.todos;
+        })
+        .style('display', function (d) {
+          if (!d.length) return 'none';
+        });
 
       footer.select('.clear-completed').call(clearCompleted);
       footer.select('.todo-count').call(todoCount);

@@ -1,16 +1,16 @@
 (function (window) {
   'use strict';
 
-  var app;
+  var app, sel;
 
-  window.createView = function createView(dispatch) {
-    app = window.components.app(dispatch);
+  window.createView = function createView(store) {
+    app = window.components.app();
+    sel = d3.select('.todoapp')
+      .provide(store);
   };
 
-  window.updateView = function updateView(state, dispatch) {
-    d3.select('.todoapp')
-      .datum(state)
-      .call(app);
+  window.updateView = function updateView() {
+    sel.call(app);
   };
 
 })(window);

@@ -3,7 +3,7 @@
 
   window.components = window.components || {};
 
-  window.components.todoList = function (dispatch) {
+  window.components.todoList = function () {
     var ENTER_KEY = window.keycodes.ENTER_KEY;
     var ESCAPE_KEY = window.keycodes.ESCAPE_KEY;
 
@@ -16,10 +16,10 @@
     function updateTodo(d) {
       var title = this.value.trim();
       if (!title) {
-        dispatch(destroyTodo(d.id, title));
+        return destroyTodo(d.id, title);
       }
       else {
-        dispatch(editSaveTodo(d.id, title));
+        return editSaveTodo(d.id, title);
       }
     }
 
@@ -40,30 +40,30 @@
       todosView.append('input')
         .attr('class', 'toggle')
         .attr('type', 'checkbox')
-        .on('click', function (d) {
-          dispatch(toggleTodo(d.id));
+        .dispatchOn('click', function (d) {
+          return toggleTodo(d.id);
         });
 
       todosView.append('label')
-        .on('dblclick', function (d) {
-          dispatch(editBeginTodo(d.id));
+        .dispatchOn('dblclick', function (d) {
+          return editBeginTodo(d.id);
         });
 
       todosView.append('button')
         .attr('class', 'destroy')
-        .on('click', function (d) {
-          dispatch(destroyTodo(d.id));
+        .dispatchOn('click', function (d) {
+          return destroyTodo(d.id);
         });
 
       todosEnter.append('input')
         .attr('class', 'edit')
-        .on('blur', updateTodo)
-        .on('keyup', function (d) {
+        .dispatchOn('blur', updateTodo)
+        .dispatchOn('keyup', function (d) {
           if (d3.event.which === ENTER_KEY) {
-            updateTodo.call(this, d);
+            return updateTodo.call(this, d);
           }
           if (d3.event.which === ESCAPE_KEY) {
-            dispatch(editCancelTodo(d.id));
+            return editCancelTodo(d.id);
           }
         });
 

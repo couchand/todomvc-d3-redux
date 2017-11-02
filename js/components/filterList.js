@@ -6,8 +6,8 @@
   window.components.filterList = function () {
     return function (filterList) {
       var filtersJoin = filterList.selectAll('li')
-        .data(function (d) {
-          return window.filters.getAll(d.filter);
+        .dataFromState(function (state) {
+          return window.filters.getAll(state.filter);
         });
 
       filtersJoin.exit()

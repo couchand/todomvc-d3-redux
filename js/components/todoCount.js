@@ -7,8 +7,8 @@
     var filterActive = window.filters.activeTodos;
 
     return function (todoCount) {
-      todoCount.datum(function (d) {
-        return filterActive(d.todos).length;
+      todoCount.datumFromState(function (state) {
+        return filterActive(state.todos).length;
       });
 
       todoCount.select('strong')

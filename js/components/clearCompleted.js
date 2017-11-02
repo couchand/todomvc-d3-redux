@@ -3,17 +3,18 @@
 
   window.components = window.components || {};
 
-  window.components.clearCompleted = function (dispatch) {
+  window.components.clearCompleted = function () {
     var clearCompletedAction = window.actions.clearCompleted;
     var filterCompleted = window.filters.completedTodos;
 
     return function (clearCompleted) {
       clearCompleted
-        .on('click', function () {
-          dispatch(clearCompletedAction());
+        .dispatchOn('click', clearCompletedAction)
+        .datumFromState(function (state) {
+          return filterCompleted(state.todos);
         })
         .style('display', function (d) {
-          var anyCompleted = filterCompleted(d.todos).length;
+          var anyCompleted = d.length;
           if (!anyCompleted) return 'none';
         });
     };

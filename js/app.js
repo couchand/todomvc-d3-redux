@@ -3,7 +3,7 @@
 
   var store = window.configureStore(window.retrieveTodos());
   window.startRouting(store.dispatch);
-  window.createView(store.dispatch);
+  window.createView(store);
   store.subscribe(handleStoreUpdate);
   handleStoreUpdate();
 
@@ -12,7 +12,7 @@
     var nextState = store.getState();
     if (nextState !== currentState) {
       currentState = nextState;
-      window.updateView(currentState, store.dispatch);
+      window.updateView();
       window.persistTodos(currentState);
     }
   }
