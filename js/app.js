@@ -12,7 +12,6 @@
     var nextState = store.getState();
     if (nextState !== currentState) {
       currentState = nextState;
-      window.updateView();
       window.persistTodos(currentState);
     }
   }

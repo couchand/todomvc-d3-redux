@@ -8,7 +8,7 @@
   "license": "MIT",
   "dependencies": {
     "d3": "^4.11.0",
-    "d3-redux": "^0.0.1",
+    "d3-redux": "^0.0.2",
     "director": "^1.2.8",
     "redux": "^3.7.2",
     "todomvc-app-css": "^2.0.0",

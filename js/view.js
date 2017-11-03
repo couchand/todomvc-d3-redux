@@ -6,11 +6,8 @@
   window.createView = function createView(store) {
     app = window.components.app();
     sel = d3.select('.todoapp')
-      .provide(store);
-  };
-
-  window.updateView = function updateView() {
-    sel.call(app);
+      .provide(store)
+      .connect(app);
   };
 
 })(window);
