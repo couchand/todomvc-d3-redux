@@ -111,6 +111,12 @@ d3-random@1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/d3-random/-/d3-random-1.1.0.tgz#6642e506c6fa3a648595d2b2469788a8d12529d3"
 
+d3-redux@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/d3-redux/-/d3-redux-0.0.1.tgz#59a69447317441e04b0a3ba46fbd51688aa02507"
+  dependencies:
+    d3-selection "^1.1.0"
+
 d3-request@1.0.6:
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/d3-request/-/d3-request-1.0.6.tgz#a1044a9ef4ec28c824171c9379fae6d79474b19f"
