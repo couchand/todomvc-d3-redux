@@ -1,6 +1,8 @@
 (function (window) {
   'use strict';
 
+  var dispatch = d3.reduxDispatch;
+
   window.components = window.components || {};
 
   window.components.todoList = function () {
@@ -40,32 +42,32 @@
       todosView.append('input')
         .attr('class', 'toggle')
         .attr('type', 'checkbox')
-        .dispatchOn('click', function (d) {
+        .on('click', dispatch(function (d) {
           return toggleTodo(d.id);
-        });
+        }));
 
       todosView.append('label')
-        .dispatchOn('dblclick', function (d) {
+        .on('dblclick', dispatch(function (d) {
           return editBeginTodo(d.id);
-        });
+        }));
 
       todosView.append('button')
         .attr('class', 'destroy')
-        .dispatchOn('click', function (d) {
+        .on('click', dispatch(function (d) {
           return destroyTodo(d.id);
-        });
+        }));
 
       todosEnter.append('input')
         .attr('class', 'edit')
-        .dispatchOn('blur', updateTodo)
-        .dispatchOn('keyup', function (d) {
+        .on('blur', dispatch(updateTodo))
+        .on('keyup', dispatch(function (d) {
           if (d3.event.which === ENTER_KEY) {
             return updateTodo.call(this, d);
           }
           if (d3.event.which === ESCAPE_KEY) {
             return editCancelTodo(d.id);
           }
-        });
+        }));
 
       var todos = todosEnter.merge(todosJoin);
 

@@ -1,14 +1,16 @@
 (function (window) {
   'use strict';
 
+  var fromState = d3.reduxFromState;
+
   window.components = window.components || {};
 
   window.components.filterList = function () {
     return function (filterList) {
       var filtersJoin = filterList.selectAll('li')
-        .dataFromState(function (state) {
+        .data(fromState(function (state) {
           return window.filters.getAll(state.filter);
-        });
+        }));
 
       filtersJoin.exit()
         .remove();

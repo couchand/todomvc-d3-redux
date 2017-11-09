@@ -1,6 +1,9 @@
 (function (window) {
   'use strict';
 
+  var dispatch = d3.reduxDispatch;
+  var fromState = d3.reduxFromState;
+
   window.components = window.components || {};
 
   window.components.clearCompleted = function () {
@@ -9,10 +12,10 @@
 
     return function (clearCompleted) {
       clearCompleted
-        .dispatchOn('click', clearCompletedAction)
-        .datumFromState(function (state) {
+        .on('click', dispatch(clearCompletedAction))
+        .datum(fromState(function (state) {
           return filterCompleted(state.todos);
-        })
+        }))
         .style('display', function (d) {
           var anyCompleted = d.length;
           if (!anyCompleted) return 'none';

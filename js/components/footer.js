@@ -1,6 +1,8 @@
 (function (window) {
   'use strict';
 
+  var fromState = d3.reduxFromState;
+
   window.components = window.components || {};
 
   window.components.footer = function () {
@@ -10,9 +12,9 @@
 
     return function (footer) {
       footer
-        .datumFromState(function (state) {
+        .datum(fromState(function (state) {
           return state.todos;
-        })
+        }))
         .style('display', function (d) {
           if (!d.length) return 'none';
         });

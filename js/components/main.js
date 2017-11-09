@@ -1,6 +1,8 @@
 (function (window) {
   'use strict';
 
+  var fromState = d3.reduxFromState;
+
   window.components = window.components || {};
 
   window.components.main = function () {
@@ -8,10 +10,10 @@
 
     return function (main) {
       main
-        .datumFromState(function (state) {
+        .datum(fromState(function (state) {
           var filter = window.filters.get(state.filter);
           return state.todos.filter(filter.predicate);
-        })
+        }))
         .style('display', function (d) {
           if (!d.length) return 'none';
         });

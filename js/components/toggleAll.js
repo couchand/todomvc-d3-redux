@@ -1,6 +1,9 @@
 (function (window) {
   'use strict';
 
+  var dispatch = d3.reduxDispatch;
+  var fromState = d3.reduxFromState;
+
   window.components = window.components || {};
 
   window.components.toggleAll = function () {
@@ -9,10 +12,10 @@
 
     return function (toggleAll) {
       toggleAll
-        .dispatchOn('click', toggleAllAction)
-        .datumFromState(function (state) {
+        .on('click', dispatch(toggleAllAction))
+        .datum(fromState(function (state) {
           return state.todos;
-        })
+        }))
         .property('checked', function (d) {
           var any = d.length;
           var anyActive = filterActive(d).length;

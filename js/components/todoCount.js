@@ -1,15 +1,17 @@
 (function (window) {
   'use strict';
 
+  var fromState = d3.reduxFromState;
+
   window.components = window.components || {};
 
   window.components.todoCount = function () {
     var filterActive = window.filters.activeTodos;
 
     return function (todoCount) {
-      todoCount.datumFromState(function (state) {
+      todoCount.datum(fromState(function (state) {
         return filterActive(state.todos).length;
-      });
+      }));
 
       todoCount.select('strong')
         .text(function (d) { return d; });
