@@ -13,5 +13,11 @@
     "redux": "^3.7.2",
     "todomvc-app-css": "^2.0.0",
     "todomvc-common": "^1.0.0"
+  },
+  "devDependencies": {
+    "rollup": "^0.51.5"
+  },
+  "scripts": {
+    "rollup": "rollup -c"
   }
 }
