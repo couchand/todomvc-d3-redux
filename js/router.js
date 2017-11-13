@@ -1,12 +1,15 @@
+import { setFilter } from './actions';
+import { getFilters } from './filters';
+
 export function startRouting(dispatch) {
   function handleFilter(type) {
     return function () {
-      dispatch(window.actions.setFilter(type));
+      dispatch(setFilter(type));
     };
   }
 
   var routes = {};
-  window.filters.getAll().forEach(function (filter) {
+  getFilters().forEach(function (filter) {
     routes[filter.route] = handleFilter(filter.type);
   });
 

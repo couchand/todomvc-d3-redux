@@ -1,12 +1,16 @@
-var ADD_TODO = window.actions.ADD_TODO;
-var EDIT_BEGIN_TODO = window.actions.EDIT_BEGIN_TODO;
-var EDIT_CANCEL_TODO = window.actions.EDIT_CANCEL_TODO;
-var EDIT_SAVE_TODO = window.actions.EDIT_SAVE_TODO;
-var TOGGLE_TODO = window.actions.TOGGLE_TODO;
-var DESTROY_TODO = window.actions.DESTROY_TODO;
+import {
+  ADD_TODO,
+  EDIT_BEGIN_TODO,
+  EDIT_CANCEL_TODO,
+  EDIT_SAVE_TODO,
+  TOGGLE_TODO,
+  DESTROY_TODO,
+  TOGGLE_ALL,
+  CLEAR_COMPLETED,
+  SET_FILTER,
+} from './actions';
 
-var TOGGLE_ALL = window.actions.TOGGLE_ALL;
-var CLEAR_COMPLETED = window.actions.CLEAR_COMPLETED;
+import { defaultFilter } from './filters';
 
 function getNextId(todos) {
   var lastId = todos
@@ -80,9 +84,6 @@ function todoReducer(state = [], action) {
       return state;
   }
 }
-
-var SET_FILTER = window.actions.SET_FILTER;
-var defaultFilter = window.filters.defaultFilter;
 
 function filterReducer(state = defaultFilter, action) {
   switch (action.type) {

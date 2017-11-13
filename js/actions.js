@@ -1,103 +1,72 @@
-(function (window) {
-  'use strict';
+export var ADD_TODO = 'ADD_TODO';
+export var EDIT_BEGIN_TODO = 'EDIT_BEGIN_TODO';
+export var EDIT_CANCEL_TODO = 'EDIT_CANCEL_TODO';
+export var EDIT_SAVE_TODO = 'EDIT_SAVE_TODO';
+export var TOGGLE_TODO = 'TOGGLE_TODO';
+export var DESTROY_TODO = 'DESTROY_TODO';
 
-  var ADD_TODO = 'ADD_TODO';
-  var EDIT_BEGIN_TODO = 'EDIT_BEGIN_TODO';
-  var EDIT_CANCEL_TODO = 'EDIT_CANCEL_TODO';
-  var EDIT_SAVE_TODO = 'EDIT_SAVE_TODO';
-  var TOGGLE_TODO = 'TOGGLE_TODO';
-  var DESTROY_TODO = 'DESTROY_TODO';
+export var TOGGLE_ALL = 'TOGGLE_ALL';
+export var CLEAR_COMPLETED = 'CLEAR_COMPLETED';
 
-  var TOGGLE_ALL = 'TOGGLE_ALL';
-  var CLEAR_COMPLETED = 'CLEAR_COMPLETED';
+export var SET_FILTER = 'SET_FILTER';
 
-  var SET_FILTER = 'SET_FILTER';
-
-  function addTodo(title) {
-    return {
-      type: ADD_TODO,
-      payload: { title }
-    }
+export function addTodo(title) {
+  return {
+    type: ADD_TODO,
+    payload: { title }
   }
+}
 
-  function editBeginTodo(id) {
-    return {
-      type: EDIT_BEGIN_TODO,
-      payload: { id }
-    }
+export function editBeginTodo(id) {
+  return {
+    type: EDIT_BEGIN_TODO,
+    payload: { id }
   }
+}
 
-  function editCancelTodo(id) {
-    return {
-      type: EDIT_CANCEL_TODO,
-      payload: { id }
-    }
+export function editCancelTodo(id) {
+  return {
+    type: EDIT_CANCEL_TODO,
+    payload: { id }
   }
+}
 
-  function editSaveTodo(id, title) {
-    return {
-      type: EDIT_SAVE_TODO,
-      payload: { id, title }
-    }
+export function editSaveTodo(id, title) {
+  return {
+    type: EDIT_SAVE_TODO,
+    payload: { id, title }
   }
+}
 
-  function toggleTodo(id) {
-    return {
-      type: TOGGLE_TODO,
-      payload: { id }
-    }
+export function toggleTodo(id) {
+  return {
+    type: TOGGLE_TODO,
+    payload: { id }
   }
+}
 
-  function destroyTodo(id) {
-    return {
-      type: DESTROY_TODO,
-      payload: { id }
-    }
+export function destroyTodo(id) {
+  return {
+    type: DESTROY_TODO,
+    payload: { id }
   }
+}
 
-  function toggleAll() {
-    return {
-      type: TOGGLE_ALL
-    }
+export function toggleAll() {
+  return {
+    type: TOGGLE_ALL
   }
+}
 
-  function clearCompleted() {
-    return {
-      type: CLEAR_COMPLETED
-    }
+export function clearCompleted() {
+  return {
+    type: CLEAR_COMPLETED
   }
+}
 
-  function setFilter(filter) {
-    return {
-      type: SET_FILTER,
-      payload: { filter }
-    }
+export function setFilter(filter) {
+  return {
+    type: SET_FILTER,
+    payload: { filter }
   }
-
-  window.actions = {
-    ADD_TODO,
-    EDIT_BEGIN_TODO,
-    EDIT_CANCEL_TODO,
-    EDIT_SAVE_TODO,
-    TOGGLE_TODO,
-    DESTROY_TODO,
-
-    TOGGLE_ALL,
-    CLEAR_COMPLETED,
-
-    SET_FILTER,
-
-    addTodo,
-    editBeginTodo,
-    editCancelTodo,
-    editSaveTodo,
-    toggleTodo,
-    destroyTodo,
-
-    toggleAll,
-    clearCompleted,
-
-    setFilter
-  };
-
-})(window);
+}

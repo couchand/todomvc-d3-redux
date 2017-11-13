@@ -1,8 +1,2 @@
-(function (window) {
-
-  window.keycodes = {
-    ENTER_KEY: 13,
-    ESCAPE_KEY: 27
-  };
-
-})(window);
+export var ENTER_KEY = 13;
+export var ESCAPE_KEY = 27;

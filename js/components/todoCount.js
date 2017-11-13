@@ -1,26 +1,19 @@
-(function (window) {
-  'use strict';
+import { filterActive } from '../filters';
 
-  var fromState = d3.reduxFromState;
+var fromState = d3.reduxFromState;
 
-  window.components = window.components || {};
+export default function () {
+  return function (todoCount) {
+    todoCount.datum(fromState(function (state) {
+      return filterActive(state.todos).length;
+    }));
 
-  window.components.todoCount = function () {
-    var filterActive = window.filters.activeTodos;
+    todoCount.select('strong')
+      .text(function (d) { return d; });
 
-    return function (todoCount) {
-      todoCount.datum(fromState(function (state) {
-        return filterActive(state.todos).length;
-      }));
-
-      todoCount.select('strong')
-        .text(function (d) { return d; });
-
-      todoCount.select('span')
-        .text(function (d) {
-          return d === 1 ? ' item left' : ' items left';
-        });
-    };
+    todoCount.select('span')
+      .text(function (d) {
+        return d === 1 ? ' item left' : ' items left';
+      });
   };
-
-})(window);
+}

@@ -1,80 +1,63 @@
-(function (window) {
-  'use strict';
+export var SHOW_ALL = 'SHOW_ALL';
+export var SHOW_ACTIVE = 'SHOW_ACTIVE';
+export var SHOW_COMPLETED = 'SHOW_COMPLETED';
 
-  var SHOW_ALL = 'SHOW_ALL';
-  var SHOW_ACTIVE = 'SHOW_ACTIVE';
-  var SHOW_COMPLETED = 'SHOW_COMPLETED';
+export var defaultFilter = SHOW_ALL;
 
-  var filterConfig = [
-    {
-      type: SHOW_ALL,
-      title: 'All',
-      route: '/',
-      predicate: function (todo) { return true; }
-    },
-    {
-      type: SHOW_ACTIVE,
-      title: 'Active',
-      route: '/active',
-      predicate: activePredicate
-    },
-    {
-      type: SHOW_COMPLETED,
-      title: 'Completed',
-      route: '/completed',
-      predicate: completedPredicate
-    }
-  ];
-
-  function activePredicate(todo) {
-    return !todo.completed;
+var filterConfig = [
+  {
+    type: SHOW_ALL,
+    title: 'All',
+    route: '/',
+    predicate: function (todo) { return true; }
+  },
+  {
+    type: SHOW_ACTIVE,
+    title: 'Active',
+    route: '/active',
+    predicate: activePredicate
+  },
+  {
+    type: SHOW_COMPLETED,
+    title: 'Completed',
+    route: '/completed',
+    predicate: completedPredicate
   }
+];
 
-  function completedPredicate(todo) {
-    return todo.completed;
-  }
+function activePredicate(todo) {
+  return !todo.completed;
+}
 
-  function filterActive(todos) {
-    return todos.filter(activePredicate);
-  }
+function completedPredicate(todo) {
+  return todo.completed;
+}
 
-  function filterCompleted(todos) {
-    return todos.filter(completedPredicate);
-  }
+export function filterActive(todos) {
+  return todos.filter(activePredicate);
+}
 
-  function getFilter(current) {
-    var selected = filterConfig.filter(function (filter) {
-      return filter.type === current
-    });
+export function filterCompleted(todos) {
+  return todos.filter(completedPredicate);
+}
 
-    if (selected.length) return selected[0];
-    return filterConfig[0];
-  }
+export function getFilter(current) {
+  var selected = filterConfig.filter(function (filter) {
+    return filter.type === current
+  });
 
-  function getFilters(current) {
-    return filterConfig.map(function (filter) {
-      return {
-        type: filter.type,
-        title: filter.title,
-        route: filter.route,
-        predicate: filter.predicate,
-        selected: filter.type === current
-      };
-    });
-  }
+  if (selected.length) return selected[0];
+  return filterConfig[0];
+}
 
-  window.filters = {
-    SHOW_ALL: SHOW_ALL,
-    SHOW_ACTIVE: SHOW_ACTIVE,
-    SHOW_COMPLETED: SHOW_COMPLETED,
-
-    activeTodos: filterActive,
-    completedTodos: filterCompleted,
-
-    defaultFilter: SHOW_ALL,
-
-    get: getFilter,
-    getAll: getFilters
-  };
-
-})(window);
+export function getFilters(current) {
+  return filterConfig.map(function (filter) {
+    return {
+      type: filter.type,
+      title: filter.title,
+      route: filter.route,
+      predicate: filter.predicate,
+      selected: filter.type === current
+    };
+  });
+}

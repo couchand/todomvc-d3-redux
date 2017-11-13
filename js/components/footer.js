@@ -1,28 +1,25 @@
-(function (window) {
-  'use strict';
+import ClearCompleted from './clearCompleted';
+import TodoCount from './todoCount';
+import FilterList from './filterList';
 
-  var fromState = d3.reduxFromState;
+var fromState = d3.reduxFromState;
 
-  window.components = window.components || {};
+export default function () {
+  var clearCompleted = ClearCompleted();
+  var todoCount = TodoCount();
+  var filterList = FilterList();
 
-  window.components.footer = function () {
-    var clearCompleted = window.components.clearCompleted();
-    var todoCount = window.components.todoCount();
-    var filterList = window.components.filterList();
+  return function (footer) {
+    footer
+      .datum(fromState(function (state) {
+        return state.todos;
+      }))
+      .style('display', function (d) {
+        if (!d.length) return 'none';
+      });
 
-    return function (footer) {
-      footer
-        .datum(fromState(function (state) {
-          return state.todos;
-        }))
-        .style('display', function (d) {
-          if (!d.length) return 'none';
-        });
-
-      footer.select('.clear-completed').call(clearCompleted);
-      footer.select('.todo-count').call(todoCount);
-      footer.select('.filters').call(filterList);
-    };
+    footer.select('.clear-completed').call(clearCompleted);
+    footer.select('.todo-count').call(todoCount);
+    footer.select('.filters').call(filterList);
   };
-
-})(window);
+}
