@@ -9,6 +9,12 @@
 > _[Redux.js - redux.js.org](http://redux.js.org/)_
 
 
+## Getting Started
+
+Clone the repository, run `yarn` to install dependencies, and run
+`yarn rollup` to generate the bundle.
+
+
 ## Implementation
 
 TODO: fill in details
