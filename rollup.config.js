@@ -1,15 +1,23 @@
+import resolve from 'rollup-plugin-node-resolve';
+
 export default {
   input: "js/app.js",
   external: [
-    "d3",
-    "d3-redux",
-    "director",
     "redux",
-    "todomvc-common"
+    "director"
   ],
   output: {
     file: "build/bundle.js",
     format: "iife",
-    name: "todoapp"
-  }
+    name: "todoapp",
+    globals: {
+      "redux": "Redux",
+      "director": "window"
+    }
+  },
+  plugins: [
+    resolve({
+      jsnext: true
+    })
+  ]
 };

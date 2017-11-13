@@ -1,6 +1,6 @@
-import { getFilters } from '../filters';
+import { reduxFromState as fromState } from 'd3-redux';
 
-var fromState = d3.reduxFromState;
+import { getFilters } from '../filters';
 
 export default function () {
   return function (filterList) {

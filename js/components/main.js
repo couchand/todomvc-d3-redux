@@ -1,7 +1,7 @@
+import { reduxFromState as fromState } from 'd3-redux';
+
 import { getFilter } from '../filters';
 import TodoList from './todoList';
-
-var fromState = d3.reduxFromState;
 
 export default function () {
   var todoList = TodoList();

@@ -1,3 +1,5 @@
+import { combineReducers, createStore } from 'redux';
+
 import {
   ADD_TODO,
   EDIT_BEGIN_TODO,
@@ -9,7 +11,6 @@ import {
   CLEAR_COMPLETED,
   SET_FILTER,
 } from './actions';
-
 import { defaultFilter } from './filters';
 
 function getNextId(todos) {
@@ -95,13 +96,13 @@ function filterReducer(state = defaultFilter, action) {
   }
 }
 
-var rootReducer = Redux.combineReducers({
+var rootReducer = combineReducers({
   todos: todoReducer,
   filter: filterReducer
 });
 
 export function configureStore(initialState) {
-  return Redux.createStore(
+  return createStore(
     rootReducer,
     initialState
   );

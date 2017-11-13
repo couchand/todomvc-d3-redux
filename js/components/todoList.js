@@ -1,10 +1,11 @@
+import { event as d3event } from 'd3-selection';
+import { reduxDispatch as dispatch } from 'd3-redux';
+
 import {
   editBeginTodo, editCancelTodo, editSaveTodo,
   toggleTodo, destroyTodo
 } from '../actions';
 import { ENTER_KEY, ESCAPE_KEY } from '../keycodes';
-
-var dispatch = d3.reduxDispatch;
 
 export default function () {
   function updateTodo(d) {
@@ -53,10 +54,10 @@ export default function () {
       .attr('class', 'edit')
       .on('blur', dispatch(updateTodo))
       .on('keyup', dispatch(function (d) {
-        if (d3.event.which === ENTER_KEY) {
+        if (d3event.which === ENTER_KEY) {
           return updateTodo.call(this, d);
         }
-        if (d3.event.which === ESCAPE_KEY) {
+        if (d3event.which === ESCAPE_KEY) {
           return editCancelTodo(d.id);
         }
       }));

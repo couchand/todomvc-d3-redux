@@ -1,8 +1,10 @@
+import {
+  reduxDispatch as dispatch,
+  reduxFromState as fromState
+} from 'd3-redux';
+
 import { toggleAll as toggleAllAction } from '../actions';
 import { filterActive } from '../filters';
-
-var dispatch = d3.reduxDispatch;
-var fromState = d3.reduxFromState;
 
 export default function () {
   return function (toggleAll) {

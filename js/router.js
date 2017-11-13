@@ -1,3 +1,5 @@
+import { Router } from 'director';
+
 import { setFilter } from './actions';
 import { getFilters } from './filters';
 

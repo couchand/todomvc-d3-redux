@@ -1,8 +1,8 @@
+import { reduxFromState as fromState } from 'd3-redux';
+
 import ClearCompleted from './clearCompleted';
 import TodoCount from './todoCount';
 import FilterList from './filterList';
-
-var fromState = d3.reduxFromState;
 
 export default function () {
   var clearCompleted = ClearCompleted();

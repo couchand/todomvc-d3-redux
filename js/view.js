@@ -1,12 +1,15 @@
-import App from './components/app';
+import { select } from 'd3-selection';
+import {
+  reduxProvide as provide,
+  reduxConnect as connect
+} from 'd3-redux';
 
-var provide = d3.reduxProvide;
-var connect = d3.reduxConnect;
+import App from './components/app';
 
 export function createView(store) {
   var app = App();
 
-  d3.select('.todoapp')
+  select('.todoapp')
     .call(provide(store))
     .call(connect(app));
 }
