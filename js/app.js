@@ -1,19 +1,19 @@
-(function (window) {
-  'use strict';
+import { configureStore } from './model';
+import { persistTodos, retrieveTodos } from './persistence';
+import { startRouting } from './router';
+import { createView } from './view';
 
-  var store = window.configureStore(window.retrieveTodos());
-  window.startRouting(store.dispatch);
-  window.createView(store);
-  store.subscribe(handleStoreUpdate);
-  handleStoreUpdate();
+var store = configureStore(retrieveTodos());
+startRouting(store.dispatch);
+createView(store);
+store.subscribe(handleStoreUpdate);
+handleStoreUpdate();
 
-  var currentState;
-  function handleStoreUpdate() {
-    var nextState = store.getState();
-    if (nextState !== currentState) {
-      currentState = nextState;
-      window.persistTodos(currentState);
-    }
+var currentState;
+function handleStoreUpdate() {
+  var nextState = store.getState();
+  if (nextState !== currentState) {
+    currentState = nextState;
+    persistTodos(currentState);
   }
-
-})(window);
+}
